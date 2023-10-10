@@ -1,0 +1,3 @@
+(library
+ (name fractals2d)
+ (libraries vg gg))
