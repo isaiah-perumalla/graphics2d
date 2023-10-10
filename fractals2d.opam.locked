@@ -1,0 +1,67 @@
+opam-version: "2.0"
+name: "fractals2d"
+version: "~dev"
+synopsis: "A short synopsis"
+description: "A longer description"
+maintainer: "Maintainer Name"
+authors: "Author Name"
+license: "LICENSE"
+tags: ["topics" "to describe" "your" "project"]
+homepage: "https://github.com/username/reponame"
+doc: "https://url/to/documentation"
+bug-reports: "https://github.com/username/reponame/issues"
+depends: [
+  "base-bigarray" {= "base"}
+  "base-threads" {= "base"}
+  "base-unix" {= "base"}
+  "brr" {= "0.0.6"}
+  "cairo2" {= "0.6.4"}
+  "cmdliner" {= "1.2.0"}
+  "conf-cairo" {= "1"}
+  "conf-pkg-config" {= "3"}
+  "cppo" {= "1.6.9"}
+  "csexp" {= "1.5.2"}
+  "dune" {= "3.11.0"}
+  "dune-configurator" {= "3.11.0"}
+  "gen" {= "1.1"}
+  "gg" {= "1.0.0"}
+  "js_of_ocaml-compiler" {= "5.4.0"}
+  "js_of_ocaml-toplevel" {= "5.4.0"}
+  "menhir" {= "20230608"}
+  "menhirLib" {= "20230608"}
+  "menhirSdk" {= "20230608"}
+  "ocaml" {= "4.14.1"}
+  "ocaml-base-compiler" {= "4.14.1"}
+  "ocaml-compiler-libs" {= "v0.12.4"}
+  "ocaml-config" {= "2"}
+  "ocaml-options-vanilla" {= "1"}
+  "ocamlbuild" {= "0.14.2"}
+  "ocamlfind" {= "1.9.6"}
+  "otfm" {= "0.4.0"}
+  "ppx_derivers" {= "1.2.1"}
+  "ppxlib" {= "0.31.0"}
+  "sedlex" {= "3.2"}
+  "seq" {= "base"}
+  "sexplib0" {= "v0.16.0"}
+  "stdlib-shims" {= "0.3.0"}
+  "topkg" {= "1.0.7"}
+  "uutf" {= "1.0.3"}
+  "vg" {= "0.9.4"}
+  "yojson" {= "2.1.0"}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/username/reponame.git"
+pin-depends: ["vg.0.9.4" "git+https://github.com/dbuenzli/vg.git#278e473"]

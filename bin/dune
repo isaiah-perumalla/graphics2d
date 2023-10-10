@@ -1,6 +1,4 @@
 (executable
- (public_name fractals2d)
  (name main)
- 
- (libraries vg vg.svg brr vg.cairo fractals2d)
- )
+ (modes js)
+ (libraries vg brr vg.htmlc fractals2d))

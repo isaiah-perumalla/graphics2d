@@ -1,13 +1,12 @@
 open Gg
 open Vg
+open Brr
 
-(* 1. Define your image *)
 
-(* let gray = I.const (Color.gray 0.5) *)
-let size = Size2.v 100. 100. 
+let size = Size2.v 200. 200. 
 let view = Box2.unit 
 (* let view = Box2.v P2.o (Size2.v 26. 26.) *)
-let white = I.const Color.white
+(* let white = I.const Color.white *)
 (* let colors = [|I.const (Color.v_srgb 0.5 0.8 0.5); I.const (Color.v_srgb 0. 0.39 0.5); I.const (Color.v_srgb 0.5 0.2 0.9); |] *)
 (* let circle x y r = P.empty |> P.circle (P2.v x y) r *)
 (* let gray_circle (x,y ) = (I.cut circle gray) |> I.move (P2.v x y) *)
@@ -30,14 +29,19 @@ let p_to_img p color =
       *)
 (* let sqr_img o sz basis = p_to_img (sqr_p o sz basis) Color.white *)
 
-let () =
+
+
+let canvas =  El.canvas []
+let run () =
   
   let warn w = Vgr.pp_warning Format.err_formatter w in
-  let r = Vgr.create ~warn (Vgr_svg.target ()) (`Channel stdout) in
+  (* let r = Vgr.create ~warn (Vgr_svg.target ()) (`Channel stdout) in *)
     (* let sqr c s = I.scale (V2.v s s) (to_img (I.const c)  box_unit)  in *)
     (* let _ = I.blend sqr image in *)
+    let brr_canvas = Brr_canvas.Canvas.of_el canvas in 
+    let r = Vgr.create ~warn (Vgr_htmlc.target brr_canvas) `Other in
     let open Fractals2d in 
-    let img = Carpet.make white 5  in 
+    let img = Carpet.make (I.const (Color.red) ) 5  in 
   (* let mv_up m img = I.move (V2.v 0. m) img in *)
   (* let blue =  mv_up 0.5 (mv 0. (sqr Color.blue 0.25))  in *)
   (* let _ = mv 0.25 (sqr Color.red 0.5) in
@@ -48,3 +52,16 @@ let () =
   (* let i = I.blend (I.blend  sq sq1) (I.const Color.black)   in   *)
   ignore (Vgr.render r (`Image (size, view, img )));
   ignore (Vgr.render r `End)
+
+let main () =
+  let app = 
+    El.div [El.div [canvas];] in
+  match Document.find_el_by_id G.document (Jstr.v "app") with
+  | None ->
+      Console.(warn ["No element with id 'app'"])
+  | Some app_container ->
+      El.set_children app_container [app] ;
+      run ()
+
+let () = main ()
+      

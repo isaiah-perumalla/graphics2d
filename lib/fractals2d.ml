@@ -2,7 +2,9 @@ open Vg
 open Gg
 
 module Carpet = struct
-  let colors = [|I.const (Color.v_srgb 0.5 0.8 0.5); I.const (Color.v_srgb 0. 0.39 0.5); I.const (Color.v_srgb 0.5 0.2 0.9); |]
+  (* let colors = [|I.const (Color.v_srgb 0.5 0.8 0.5); I.const (Color.v_srgb 0. 0.39 0.5); I.const (Color.v_srgb 0.5 0.2 0.9); |] *)
+
+  let colors = [|I.const (Color.white); |]
 
   let box (x,y) s = Box2.v (V2.v x y) (V2.v s s)
   let box_unit = box (0., 0.) 1.
